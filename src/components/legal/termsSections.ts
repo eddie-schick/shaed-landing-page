@@ -1,0 +1,17 @@
+export const termsSections = [
+  { id: 'intro', label: 'Introduction' },
+  { id: 'section-1', label: '1. Services & Platform Access' },
+  { id: 'section-2', label: '2. Customer Obligations' },
+  { id: 'section-3', label: '3. Transaction Terms' },
+  { id: 'section-4', label: '4. Intellectual Property' },
+  { id: 'section-5', label: '5. Data Rights & Licensing' },
+  { id: 'section-6', label: '6. Fees & Payment' },
+  { id: 'section-7', label: '7. Term & Termination' },
+  { id: 'section-8', label: '8. Representations & Warranties' },
+  { id: 'section-9', label: '9. Disclaimer of Warranties' },
+  { id: 'section-10', label: '10. Limitation of Liability' },
+  { id: 'section-11', label: '11. Indemnification' },
+  { id: 'section-12', label: '12. Confidentiality' },
+  { id: 'section-13', label: '13. General Provisions' },
+  { id: 'schedule-a', label: 'Schedule A: Definitions' },
+];

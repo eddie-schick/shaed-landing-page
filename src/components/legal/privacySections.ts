@@ -1,0 +1,18 @@
+export const privacySections = [
+  { id: 'facts', label: 'Facts Overview' },
+  { id: 'sharing-reasons', label: 'Information Sharing' },
+  { id: 'what-we-do', label: 'What We Do' },
+  { id: 'california', label: 'For California Residents' },
+  { id: 'categories-pi', label: 'Categories of Personal Info' },
+  { id: 'categories-sources', label: 'Sources of Personal Info' },
+  { id: 'business-purposes', label: 'Business Purposes' },
+  { id: 'disclosure', label: 'Disclosure of Info' },
+  { id: 'retention', label: 'Retention' },
+  { id: 'california-rights', label: 'California Rights' },
+  { id: 'exercise-rights', label: 'Exercise Your Rights' },
+  { id: 'sharing-pi', label: 'Sharing Personal Info' },
+  { id: 'sale-pi', label: 'Sale of Personal Info' },
+  { id: 'under-16', label: 'Under 16 Years of Age' },
+  { id: 'sensitive-pi', label: 'Sensitive Personal Info' },
+  { id: 'changes', label: 'Changes to Disclosure' },
+];
