@@ -47,11 +47,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'AG',
     photo_url: '/ArpitGupta.png',
     bio_1:
-      "Arpit led product for WEX's global fleet and trucking businesses, five units at 60% of company revenue serving 600,000 customers, and ran the 100-person product organization behind Kelley Blue Book and Autotrader at Cox Automotive.",
+      "Arpit leads product and technology at SHAED, owning the platform roadmap, the anchor partnerships, SOC 2, and the engineering team.",
     bio_2:
-      'His AI cost analytics reached 50,000 fleet managers.',
+      "Previously he led product for WEX's global fleet and trucking businesses, five units at 60% of company revenue serving 600,000 customers, and ran the 100-person product organization behind Kelley Blue Book and Autotrader at Cox Automotive.",
     bio_3:
-      'At SHAED he owns the roadmap, the anchor partnerships, SOC 2, and the engineering team.',
+      'His AI cost analytics reached 50,000 fleet managers.',
     linkedin: 'https://www.linkedin.com/in/thearpitgupta/',
   },
   {
