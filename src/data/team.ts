@@ -33,7 +33,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'ES',
     photo_url: '/EddieSchick.png',
     bio_1:
-      "Eddie serves as a strategic partner to the CEO and owns SHAED's financial and operating backbone: FP&A, treasury, internal controls and the legal and compliance stack, plus the employees and contractors running the company day to day.",
+      "Eddie serves as a strategic partner to the CEO and owns SHAED's financial and operating backbone: FP&A, treasury, internal controls and the legal and compliance stack, plus day-to-day operations.",
     bio_2:
       'He has raised $9.6M across multiple rounds. Previously FP&A at Coty through its KKR divestiture, and six years auditing commercial clients at RSM.',
     bio_3:
