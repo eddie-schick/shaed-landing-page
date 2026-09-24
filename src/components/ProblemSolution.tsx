@@ -1,4 +1,4 @@
-import { ClipboardList, Unplug, Search, ArrowDown, ArrowRight } from 'lucide-react';
+import { ClipboardList, Unplug, Search, ChevronDown, ArrowRight } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import Button from './Button';
 
@@ -95,8 +95,11 @@ export default function ProblemSolution() {
             transition: 'opacity 0.5s ease-out 0.6s',
           }}
         >
-          <div className="w-px h-12 bg-gradient-to-b from-gray-200 dark:from-gray-700 to-teal relative">
-            <ArrowDown className="w-5 h-5 text-teal absolute -bottom-2.5 left-1/2 -translate-x-1/2" />
+          <div className="w-0.5 h-12 bg-gradient-to-b from-teal/20 to-teal rounded-full relative">
+            <ChevronDown
+              className="w-5 h-5 text-teal absolute -bottom-2 left-1/2 -translate-x-1/2"
+              strokeWidth={2.5}
+            />
           </div>
         </div>
 
