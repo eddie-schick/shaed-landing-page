@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <LegalPageLayout
       title="Privacy Policy"
-      subtitle="SHAED, Inc. — For U.S. Residents"
+      subtitle="SHAED, Inc. — For U.S. Residents — Effective May 2024"
       pdfPath="/Shaed_Privacy_Policy.pdf"
       sections={privacySections}
     >

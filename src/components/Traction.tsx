@@ -2,9 +2,9 @@ import AnimatedCounter from './AnimatedCounter';
 import { useInView } from '../hooks/useInView';
 
 const METRICS = [
-  { value: 250, suffix: '+', label: 'Partners on the network', detail: 'Fleets, dealers, OEMs & upfitters' },
-  { value: 100, suffix: 'K+', label: 'Transactions processed', detail: 'Orders tracked end-to-end' },
-  { value: 205, suffix: 'K+', label: 'Documents managed', detail: 'Specs, quotes & contracts' },
+  { value: 510, suffix: '+', label: 'Partners on the network', detail: 'Fleets, dealers, OEMs & upfitters' },
+  { value: 109, suffix: 'K+', label: 'Transactions processed', detail: 'Orders tracked end-to-end' },
+  { value: 300, suffix: 'K+', label: 'Documents managed', detail: 'Specs, quotes & contracts' },
 ];
 
 export default function Traction() {
