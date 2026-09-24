@@ -1,21 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Linkedin } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import { useInView } from '../hooks/useInView';
-import { supabase } from '../lib/supabase';
-
-interface TeamMember {
-  id: string;
-  name: string;
-  title: string;
-  initials: string;
-  photo_url: string | null;
-  bio_1: string;
-  bio_2: string;
-  bio_3: string;
-  linkedin: string | null;
-  display_order: number;
-}
+import { TEAM_MEMBERS, type TeamMember } from '../data/team';
 
 function TeamCard({ member, inView, delay }: { member: TeamMember; inView: boolean; delay: number }) {
   const [expanded, setExpanded] = useState(false);
@@ -83,29 +70,8 @@ function TeamCard({ member, inView, delay }: { member: TeamMember; inView: boole
   );
 }
 
-type FetchStatus = 'loading' | 'ready' | 'error';
-
 export default function Team() {
   const { ref, inView } = useInView(0.15);
-  const [members, setMembers] = useState<TeamMember[]>([]);
-  const [status, setStatus] = useState<FetchStatus>('loading');
-
-  useEffect(() => {
-    async function fetchTeam() {
-      const { data, error } = await supabase
-        .from('team_members')
-        .select('*')
-        .order('display_order', { ascending: true });
-
-      if (error) {
-        setStatus('error');
-      } else {
-        setMembers(data ?? []);
-        setStatus('ready');
-      }
-    }
-    fetchTeam();
-  }, []);
 
   return (
     <section id="team" className="bg-off-white dark:bg-gray-900 py-16 md:py-24">
@@ -116,30 +82,11 @@ export default function Team() {
           subtext="Industry veterans and technologists with decades of commercial vehicle and technology experience."
         />
 
-        {status === 'loading' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-off-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 animate-pulse"
-              >
-                <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 mb-4" />
-                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-2" />
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2" />
-                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6" />
-              </div>
-            ))}
-          </div>
-        ) : status === 'error' ? (
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">Unable to load team members. Please refresh the page.</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {members.map((m, i) => (
-              <TeamCard key={m.id} member={m} inView={inView} delay={i * 120} />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {TEAM_MEMBERS.map((m, i) => (
+            <TeamCard key={m.id} member={m} inView={inView} delay={i * 120} />
+          ))}
+        </div>
       </div>
     </section>
   );
