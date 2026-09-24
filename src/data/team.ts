@@ -19,11 +19,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'RP',
     photo_url: '/RyanPritchard.png',
     bio_1:
-      "Ryan's mission is to transform the transportation industry with innovative and sustainable products and services that meet the needs and expectations of customers, stakeholders, and society.",
+      'Ryan is on a mission to transform the transportation industry through innovative, digitized products and services that deliver value to customers, stakeholders, and society.',
     bio_2:
-      'With 21+ years of automotive experience, centered around the global trends of shared, autonomous, and electrified mobility, he brings unparalleled expertise to our team.',
+      'With over 21 years of experience in automotive, focused on mobility solutions, he brings unmatched expertise to our team.',
     bio_3:
-      'As a recognized authority on commercial vehicle procurement, a robust network, and a proven track-record of revenue generation, Ryan is the entrepreneurial force behind our success.',
+      'A recognized authority in commercial vehicle procurement, Ryan combines a powerful network and a proven record of revenue growth to drive our entrepreneurial success. Google-certified in generative AI and cloud.',
     linkedin: 'https://www.linkedin.com/in/ev-ryan-pritchard/',
   },
   {
@@ -33,11 +33,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'ES',
     photo_url: '/EddieSchick.png',
     bio_1:
-      "Eddie is a strategic partner to the CEO and serves as the lead for SHAED's investor relations, fundraising, and overall financial health.",
+      "Eddie serves as a strategic partner to the CEO and owns SHAED's financial and operating backbone: FP&A, treasury, internal controls and the legal and compliance stack, plus the employees and contractors running the company day to day.",
     bio_2:
-      'He has a proven record in overseeing and managing all financial-related activities of companies such as Pritchard EV, Coty, and RSM.',
+      'He has raised $9.6M across multiple rounds. Previously FP&A at Coty through its KKR divestiture, and six years auditing commercial clients at RSM.',
     bio_3:
-      'His dedication to boosting sales and nurturing customer relationships ensures our success, one strategic pipeline at a time.',
+      "CPA, and Google-certified in generative AI, with Claude embedded in SHAED's planning and reporting.",
     linkedin: 'https://www.linkedin.com/in/eddie-schick-05338616/',
   },
   {
@@ -47,11 +47,11 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'AG',
     photo_url: '/ArpitGupta.png',
     bio_1:
-      "Arpit brings deep engineering leadership and a proven ability to scale high-growth SaaS platforms, making him instrumental in advancing SHAED's technology vision.",
+      "Arpit led product for WEX's global fleet and trucking businesses, five units at 60% of company revenue serving 600,000 customers, and ran the 100-person product organization behind Kelley Blue Book and Autotrader at Cox Automotive.",
     bio_2:
-      'With a strong background in building resilient systems and leading high-performing development teams, Arpit combines technical depth with strategic clarity.',
+      'His AI cost analytics reached 50,000 fleet managers.',
     bio_3:
-      "His focus on scalable architecture, disciplined execution, and product-driven engineering ensures SHAED's platform is built to perform at enterprise scale.",
+      'At SHAED he owns the roadmap, the anchor partnerships, SOC 2, and the engineering team.',
     linkedin: 'https://www.linkedin.com/in/thearpitgupta/',
   },
   {
