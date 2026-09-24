@@ -1,23 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, Loader2, Mail, Phone } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { ArrowLeft, Mail, Phone } from 'lucide-react';
+import { getArticleBySlug } from '../data/news';
 import FooterBar from '../components/FooterBar';
 import ThemeToggle from '../components/ThemeToggle';
-
-interface Article {
-  id: string;
-  title: string;
-  slug: string;
-  published_date: string;
-  location: string;
-  body: string;
-  category: string;
-  media_contact_name: string;
-  media_contact_title: string;
-  media_contact_email: string;
-  media_contact_phone: string;
-}
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr + 'T00:00:00');
@@ -30,38 +15,9 @@ function formatDate(dateStr: string) {
 
 export default function NewsArticle() {
   const { slug } = useParams<{ slug: string }>();
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const article = getArticleBySlug(slug);
 
-  useEffect(() => {
-    async function fetchArticle() {
-      const { data } = await supabase
-        .from('news_articles')
-        .select('*')
-        .eq('slug', slug)
-        .eq('published', true)
-        .maybeSingle();
-
-      if (data) {
-        setArticle(data);
-      } else {
-        setNotFound(true);
-      }
-      setLoading(false);
-    }
-    fetchArticle();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-teal animate-spin" />
-      </div>
-    );
-  }
-
-  if (notFound || !article) {
+  if (!article) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
         <ArticleNav backTo="/news" backLabel="Back to News" />

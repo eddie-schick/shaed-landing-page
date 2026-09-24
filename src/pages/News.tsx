@@ -1,19 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Loader2, Newspaper } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { ArrowLeft, ArrowRight, Newspaper } from 'lucide-react';
+import { NEWS_ARTICLES } from '../data/news';
 import FooterBar from '../components/FooterBar';
 import ThemeToggle from '../components/ThemeToggle';
-
-interface NewsArticle {
-  id: string;
-  title: string;
-  slug: string;
-  published_date: string;
-  location: string;
-  summary: string;
-  category: string;
-}
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr + 'T00:00:00');
@@ -25,22 +14,7 @@ function formatDate(dateStr: string) {
 }
 
 export default function News() {
-  const [articles, setArticles] = useState<NewsArticle[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchArticles() {
-      const { data } = await supabase
-        .from('news_articles')
-        .select('id, title, slug, published_date, location, summary, category')
-        .eq('published', true)
-        .order('published_date', { ascending: false });
-
-      if (data) setArticles(data);
-      setLoading(false);
-    }
-    fetchArticles();
-  }, []);
+  const articles = [...NEWS_ARTICLES].sort((a, b) => b.published_date.localeCompare(a.published_date));
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
@@ -87,11 +61,7 @@ export default function News() {
       </header>
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-6 h-6 text-teal animate-spin" />
-          </div>
-        ) : articles.length === 0 ? (
+        {articles.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-gray-500 dark:text-gray-400">No articles yet. Check back soon.</p>
           </div>

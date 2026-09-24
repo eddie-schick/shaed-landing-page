@@ -9,7 +9,6 @@ Marketing and information site for [SHAED](https://shaed.ai) — the commercial 
 - **Styling** — Tailwind CSS (custom theme tokens: `navy`, `teal`, `off-white`)
 - **Routing** — React Router v7
 - **Icons** — Lucide React
-- **Database** — Supabase (PostgreSQL + RLS)
 
 ## Getting Started
 
@@ -20,12 +19,7 @@ npm run dev
 
 ### Environment Variables
 
-Create a `.env` file in the project root (see `.env.example`):
-
-| Variable | Description |
-|---|---|
-| `VITE_SUPABASE_URL` | Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anonymous/public API key |
+None required. The site is fully static; all content lives in `src/data/`.
 
 ## Scripts
 
@@ -45,11 +39,10 @@ src/
     legal/          Legal page sub-components (Terms, Privacy)
   context/          React context providers (Theme)
   hooks/            Custom hooks (useInView)
-  lib/              Supabase client singleton
+  data/             Site content (team roster, news articles)
+  lib/              Small helpers (contact mailto, toast)
   pages/            Route-level page components
 public/             Static assets (logos, team photos, PDFs)
-supabase/
-  migrations/       Database migration files
 ```
 
 ## Routes
@@ -59,22 +52,17 @@ supabase/
 | `/` | Home (landing page with all sections) |
 | `/terms` | Terms & Conditions |
 | `/privacy` | Privacy Policy |
+| `/news` | News listing |
+| `/news/:slug` | News article |
 
-## Database
+## Content
 
-Three Supabase tables with Row Level Security enabled:
+The team roster and news articles are plain TypeScript in `src/data/`. Edit those files and redeploy to update the site.
 
-| Table | Purpose |
-|---|---|
-| `newsletter_subscribers` | Email newsletter sign-ups |
-| `contact_submissions` | Contact form entries |
-| `team_members` | Team bios and photos displayed on the site |
+The contact form and newsletter signup open the visitor's email client addressed to the address in `src/lib/contact.ts`.
 
 ## Deployment (Vercel)
 
 1. Import the repository in [Vercel](https://vercel.com/new).
 2. Vercel auto-detects the **Vite** framework preset — no manual override needed.
-3. Add the following environment variables in **Settings > Environment Variables**:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-4. Deploy. The `vercel.json` rewrite rule handles client-side routing so direct links to `/terms` and `/privacy` work correctly.
+3. Deploy. No environment variables are needed. The `vercel.json` rewrite rule handles client-side routing so direct links to `/terms` and `/privacy` work correctly.

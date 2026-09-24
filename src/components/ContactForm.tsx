@@ -1,11 +1,11 @@
 import { useState, FormEvent } from 'react';
-import { Send, Check, Loader2, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { Send, Check, ArrowRight } from 'lucide-react';
+import { openMailto } from '../lib/contact';
 import { useInView } from '../hooks/useInView';
 
 const ROLES = ['Fleet Manager', 'Dealer', 'Upfitter', 'OEM', 'Other'] as const;
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+type FormStatus = 'idle' | 'success';
 
 export default function ContactForm() {
   const { ref, inView } = useInView(0.15);
@@ -15,33 +15,24 @@ export default function ContactForm() {
   const [role, setRole] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
     if (!trimmedName || !trimmedEmail) return;
 
-    setStatus('loading');
-    setErrorMsg('');
+    const lines = [
+      `Name: ${trimmedName}`,
+      `Email: ${trimmedEmail}`,
+      company.trim() ? `Company: ${company.trim()}` : null,
+      role ? `Role: ${role}` : null,
+      '',
+      message.trim() || '(no message)',
+    ].filter((l): l is string => l !== null);
 
-    const { error } = await supabase
-      .from('contact_submissions')
-      .insert({
-        name: trimmedName,
-        email: trimmedEmail,
-        company: company.trim(),
-        role,
-        message: message.trim(),
-      });
-
-    if (error) {
-      setStatus('error');
-      setErrorMsg('Something went wrong. Please try again.');
-    } else {
-      setStatus('success');
-    }
+    openMailto(`SHAED inquiry from ${trimmedName}`, lines.join('\n'));
+    setStatus('success');
   }
 
   function handleReset() {
@@ -51,7 +42,6 @@ export default function ContactForm() {
     setRole('');
     setMessage('');
     setStatus('idle');
-    setErrorMsg('');
   }
 
   const inputBase =
@@ -124,7 +114,7 @@ export default function ContactForm() {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">We'll be in touch!</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
-                    Thanks for reaching out. A member of our team will follow up with you shortly.
+                    Your email client should have opened with your message ready to send. A member of our team will follow up with you shortly.
                   </p>
                   <button
                     onClick={handleReset}
@@ -148,7 +138,6 @@ export default function ContactForm() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your name"
                         className={inputBase}
-                        disabled={status === 'loading'}
                       />
                     </div>
                     <div>
@@ -163,7 +152,6 @@ export default function ContactForm() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@company.com"
                         className={inputBase}
-                        disabled={status === 'loading'}
                       />
                     </div>
                   </div>
@@ -180,7 +168,6 @@ export default function ContactForm() {
                         onChange={(e) => setCompany(e.target.value)}
                         placeholder="Company name"
                         className={inputBase}
-                        disabled={status === 'loading'}
                       />
                     </div>
                     <div>
@@ -192,7 +179,6 @@ export default function ContactForm() {
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                         className={`${inputBase} ${!role ? 'text-gray-400' : ''}`}
-                        disabled={status === 'loading'}
                       >
                         <option value="">Select your role</option>
                         {ROLES.map((r) => (
@@ -213,30 +199,15 @@ export default function ContactForm() {
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Tell us about your needs..."
                       className={`${inputBase} resize-none`}
-                      disabled={status === 'loading'}
                     />
                   </div>
 
-                  {status === 'error' && (
-                    <p className="text-red-500 text-xs font-medium">{errorMsg}</p>
-                  )}
-
                   <button
                     type="submit"
-                    disabled={status === 'loading'}
-                    className="w-full bg-teal hover:bg-teal-600 disabled:opacity-60 text-white py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
+                    className="w-full bg-teal hover:bg-teal-600 text-white py-3 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]"
                   >
-                    {status === 'loading' ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        Get in Touch
-                      </>
-                    )}
+                    <Send className="w-4 h-4" />
+                    Get in Touch
                   </button>
                 </form>
               )}

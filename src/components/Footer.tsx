@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Loader2 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { ArrowRight, Check } from 'lucide-react';
+import { openMailto } from '../lib/contact';
 import { showComingSoon } from '../lib/toast';
 import FooterBar from './FooterBar';
 
@@ -25,36 +25,22 @@ const RESOURCE_LINKS = [
 ];
 
 type LinkItem = { label: string; href: string | null; comingSoon?: boolean; routerLink?: boolean; external?: boolean };
-type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+type FormStatus = 'idle' | 'success';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
 
-  async function handleSubscribe(e: FormEvent) {
+  function handleSubscribe(e: FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
     if (!trimmed) return;
 
-    setStatus('loading');
-    setErrorMsg('');
-
-    const { error } = await supabase
-      .from('newsletter_subscribers')
-      .insert({ email: trimmed });
-
-    if (error) {
-      if (error.code === '23505') {
-        setStatus('success');
-      } else {
-        setStatus('error');
-        setErrorMsg('Something went wrong. Please try again.');
-      }
-    } else {
-      setStatus('success');
-    }
-
+    openMailto(
+      'SHAED newsletter signup',
+      `Please add ${trimmed} to the SHAED newsletter.`
+    );
+    setStatus('success');
     setEmail('');
   }
 
@@ -91,23 +77,14 @@ export default function Footer() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       className="flex-1 bg-gray-800/80 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-teal/50 focus:ring-1 focus:ring-teal/30 transition-all"
-                      disabled={status === 'loading'}
                     />
                     <button
                       type="submit"
-                      disabled={status === 'loading'}
-                      className="bg-teal hover:bg-teal-600 disabled:opacity-60 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 flex-shrink-0"
+                      className="bg-teal hover:bg-teal-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 flex-shrink-0"
                     >
-                      {status === 'loading' ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <ArrowRight className="w-4 h-4" />
-                      )}
+                      <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
-                  {status === 'error' && (
-                    <p className="text-red-500 text-xs">{errorMsg}</p>
-                  )}
                 </form>
               )}
             </div>
